@@ -20,20 +20,7 @@ public class UIEvent : MonoBehaviour {
 
     public void ButtonAction(Transform prefab)
     {
-        var unOccupiedElements = from element in grid.GetGrid
-                                 where element.GetIsOccupied.Equals(false)
-                                 select (element);
-
-
-        foreach (var gridElement in unOccupiedElements)
-        {
-            var meshRenderer = gridElement.GetComponent<MeshRenderer>();
-
-            if (meshRenderer != null)
-            {
-                meshRenderer.material = greenMaterial;
-            }
-        }
+        ChangeMaterial(GetGridElements(false), greenMaterial);
 
         canBuild = true;
         prefabToBuild = prefab;
@@ -65,23 +52,30 @@ public class UIEvent : MonoBehaviour {
                 gridElement.SetIsOccupied = true;
             }
         }
-        DeactivateUnUsed();
+        ChangeMaterial(GetGridElements(false), defMaterial);
     }
 
-    private void DeactivateUnUsed()
+    private IEnumerable<GridElement> GetGridElements(bool state)
     {
-        var unOccupiedElements = from element in GenerateGrid.instance.GetGrid
-                                 where element.GetIsOccupied.Equals(false)
+        var elements = from element in grid.GetGrid
+                                 where element.GetIsOccupied.Equals(state)
                                  select (element);
 
+        return elements;
+    }
 
-        foreach (var gridElement in unOccupiedElements)
+    private void ChangeMaterial(IEnumerable<GridElement> gridElements, Material material)
+    {
+        if (gridElements != null)
         {
-            var meshRenderer = gridElement.GetComponent<MeshRenderer>();
-
-            if (meshRenderer != null)
+            foreach (var gridElement in gridElements)
             {
-                meshRenderer.material = defMaterial;
+                var meshRenderer = gridElement.GetComponent<MeshRenderer>();
+
+                if (meshRenderer != null)
+                {
+                    meshRenderer.material = material;
+                }
             }
         }
     }

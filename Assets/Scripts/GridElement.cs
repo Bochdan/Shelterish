@@ -5,7 +5,6 @@ using UnityEngine;
 public class GridElement : MonoBehaviour {
 
     private bool isOccupied = false;
-
 	
     public bool GetIsOccupied
     {
@@ -21,11 +20,14 @@ public class GridElement : MonoBehaviour {
         {
             isOccupied = value;
 
-            var meshRenderer = this.GetComponent<MeshRenderer>();
-
-            if (meshRenderer != null)
+            if (value == true)
             {
-                meshRenderer.enabled = false;
+                var meshRenderer = this.GetComponent<MeshRenderer>();
+
+                if (meshRenderer != null)
+                {
+                    meshRenderer.enabled = false;
+                }
             }
         }
     }
