@@ -1,22 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GenerateGrid : MonoBehaviour {
 
-    public Transform gridPrefab;
-    public int size;
+    public GridElement gridPrefab;
+    public float size;
+    public Material greenMaterial;
 
-	// Use this for initialization
-	void Start () {
+    public static GenerateGrid instance;
+
+    private List<GridElement> grid = new List<GridElement>();
+
+    private void Awake()
+    {
+        instance = this;
         MakeGrid();
-	}
-	
+    }
+
 	// Update is called once per frame
 	void Update () {
 		
 	}
-
 
     private void MakeGrid()
     {
@@ -25,7 +31,16 @@ public class GenerateGrid : MonoBehaviour {
             var xpos = size * i;
             var vex = Vector3.zero;
             vex.x = xpos;
-            Instantiate(gridPrefab, vex, gridPrefab.rotation);
+            var gridElement = Instantiate(gridPrefab, vex, gridPrefab.transform.rotation);
+            grid.Add(gridElement);
+        }
+    }
+
+    public List<GridElement> GetGrid
+    {
+        get
+        {
+            return grid;
         }
     }
 }
