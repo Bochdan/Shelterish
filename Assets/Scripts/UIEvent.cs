@@ -7,7 +7,7 @@ public class UIEvent : MonoBehaviour {
 
     private bool canBuild;
     private GenerateGrid grid;
-    private Transform prefabToBuild;
+    private RoomElement prefabToBuild;
     private List<GridElement> aviableGrid = new List<GridElement>();
 
     public Material greenMaterial;
@@ -20,7 +20,7 @@ public class UIEvent : MonoBehaviour {
         aviableGrid.Add(grid.GetGrid[0][0]);
     }
 
-    public void ButtonAction(Transform prefab)
+    public void ButtonAction(RoomElement prefab)
     {
         Switch(true);
         ChangeMaterial(GetGridElements(false), greenMaterial);
@@ -54,9 +54,10 @@ public class UIEvent : MonoBehaviour {
                 {
                     canBuild = false;
 
-                    Instantiate(prefabToBuild, clickPoint.transform);
+                    var instancedRoom = Instantiate(prefabToBuild, clickPoint.transform);
                     gridElement.SetIsOccupied = true;
-                    UpdateAviableGrid(gridElement);
+                    instancedRoom.SetGridParent = gridElement;
+                    UpdateAviableGrid(instancedRoom);
 
                     ChangeMaterial(GetGridElements(false), defMaterial);
                     Switch(false);
@@ -65,9 +66,9 @@ public class UIEvent : MonoBehaviour {
         }
     }
 
-    private void UpdateAviableGrid(GridElement gridElement)
+    private void UpdateAviableGrid(RoomElement room)
     {
-        foreach(var gridNeighbor in gridElement.GetNeighbors)
+        foreach(var gridNeighbor in room.GetAviableGrid)
         {
             if (!aviableGrid.Contains(gridNeighbor))
             {
