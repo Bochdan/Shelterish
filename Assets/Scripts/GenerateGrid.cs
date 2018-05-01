@@ -35,7 +35,6 @@ public class GenerateGrid : MonoBehaviour {
 
             for (int j = 0; j < numberOfElements.x; j++)
             {
-
                 var xpos = size * j;
                 var gridElement = Instantiate(gridPrefab, new Vector3(xpos, ypos, 0), gridPrefab.transform.rotation);
                 gridElements.Add(gridElement);
@@ -51,13 +50,12 @@ public class GenerateGrid : MonoBehaviour {
                     gridElements[j - 1].GetHorizontalNeighbors.Add(gridElement);
                 }
 
-                
-               if(i > 0)
+
+                if (i > 0)
                 {
                     gridElement.GetVerticalNeighbors.Add(grid[i - 1][j]);
                     grid[i - 1][j].GetVerticalNeighbors.Add(gridElement);
                 }
-                
             }
 
             grid.Add(gridElements);
