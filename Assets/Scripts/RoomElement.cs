@@ -8,7 +8,7 @@ public class RoomElement : MonoBehaviour {
     public bool vertical = false;
 
     private GridElement gridParent;
-    public List<GridElement> aviableGrid = new List<GridElement>();
+    private List<GridElement> aviableGrid = new List<GridElement>();
 
     public GridElement SetGridParent
     {
