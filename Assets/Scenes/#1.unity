@@ -622,6 +622,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e909534dbbaade94da6f60f4774554ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontalAviableGrid: []
+  veritcalAviableGrid: []
   greenMaterial: {fileID: 2100000, guid: b28f2f13efaa4dc4790ad3b15484e670, type: 2}
   defMaterial: {fileID: 2100000, guid: 8bdd7f38c11624243b3977486755d030, type: 2}
 --- !u!1 &1420914175

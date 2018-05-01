@@ -5,23 +5,38 @@ using UnityEngine;
 
 public class UIEvent : MonoBehaviour {
 
+    public Material greenMaterial;
+    public Material defMaterial;
+
     private bool canBuild;
     private GenerateGrid grid;
     private RoomElement prefabToBuild;
+    public List<GridElement> horizontalAviableGrid = new List<GridElement>();
+    public List<GridElement> veritcalAviableGrid = new List<GridElement>();
     private List<GridElement> aviableGrid = new List<GridElement>();
-
-    public Material greenMaterial;
-    public Material defMaterial;
 
     private void Start()
     {
         grid = GenerateGrid.instance;
         canBuild = false;
-        aviableGrid.Add(grid.GetGrid[0][0]);
+        horizontalAviableGrid.Add(grid.GetGrid[0][0]);
     }
 
     public void ButtonAction(RoomElement prefab)
     {
+        Switch(false);
+        aviableGrid.Clear();
+
+        if(prefab.horizontal == true)
+        {
+            aviableGrid.AddRange(horizontalAviableGrid);
+        }
+
+        if(prefab.vertical == true)
+        {
+            aviableGrid.AddRange(veritcalAviableGrid);
+        }
+
         Switch(true);
         ChangeMaterial(GetGridElements(false), greenMaterial);
 
@@ -50,7 +65,7 @@ public class UIEvent : MonoBehaviour {
         {
             if (aviableGrid.Contains(gridElement))
             {
-                if (gridElement.GetIsOccupied.Equals(false))
+                if (gridElement.GetIsOccupied.Equals(false) )
                 {
                     canBuild = false;
 
@@ -61,18 +76,34 @@ public class UIEvent : MonoBehaviour {
 
                     ChangeMaterial(GetGridElements(false), defMaterial);
                     Switch(false);
+                    aviableGrid.Clear();
                 }
             }
         }
     }
 
-    private void UpdateAviableGrid(RoomElement room)
+    private void UpdateAviableGrid(RoomElement roomElement)
     {
-        foreach(var gridNeighbor in room.GetAviableGrid)
+
+        if (roomElement.horizontal == true)
         {
-            if (!aviableGrid.Contains(gridNeighbor))
+            foreach (var horizontalGrid in roomElement.GetHorizontalAviableGrid)
             {
-                aviableGrid.Add(gridNeighbor);
+                if (!horizontalAviableGrid.Contains(horizontalGrid))
+                {
+                    horizontalAviableGrid.Add(horizontalGrid);
+                }
+            }
+        }
+
+        if (roomElement.vertical == true)
+        {
+            foreach (var verticalGrid in roomElement.GetVerticalAviableGrid)
+            {
+                if (!veritcalAviableGrid.Contains(verticalGrid))
+                {
+                    veritcalAviableGrid.Add(verticalGrid);
+                }
             }
         }
     }

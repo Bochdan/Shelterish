@@ -8,31 +8,28 @@ public class RoomElement : MonoBehaviour {
     public bool vertical = false;
 
     private GridElement gridParent;
-    private List<GridElement> aviableGrid = new List<GridElement>();
 
     public GridElement SetGridParent
     {
         set
         {
             gridParent = value;
-
-            if(horizontal == true)
-            {
-                aviableGrid.AddRange(gridParent.GetHorizontalNeighbors);
-            }
-
-            if(vertical == true)
-            {
-                aviableGrid.AddRange(gridParent.GetVerticalNeighbors);
-            }
         }
     }
     
-    public List<GridElement> GetAviableGrid
+    public List<GridElement> GetHorizontalAviableGrid
     {
         get
         {
-            return aviableGrid;
+            return gridParent.GetHorizontalNeighbors;
+        }
+    }
+
+    public List<GridElement> GetVerticalAviableGrid
+    {
+        get
+        {
+            return gridParent.GetVerticalNeighbors;
         }
     }
 }
