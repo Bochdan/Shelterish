@@ -5,7 +5,7 @@ using UnityEngine;
 public class GridElement : MonoBehaviour {
 
     private bool isOccupied = false;
-    public List<GridElement> neighbors = new List<GridElement>();
+    private List<GridElement> neighbors = new List<GridElement>();
 
     public bool GetIsOccupied
     {
