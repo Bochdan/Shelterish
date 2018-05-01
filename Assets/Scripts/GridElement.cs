@@ -5,7 +5,8 @@ using UnityEngine;
 public class GridElement : MonoBehaviour {
 
     private bool isOccupied = false;
-    private List<GridElement> neighbors = new List<GridElement>();
+    private List<GridElement> verticalNeighbors = new List<GridElement>();
+    private List<GridElement> horizontalNeighbors = new List<GridElement>();
 
     public bool GetIsOccupied
     {
@@ -33,11 +34,7 @@ public class GridElement : MonoBehaviour {
         }
     }
 
-    public List<GridElement> GetNeighbors
-    {
-        get
-        {
-            return neighbors;
-        }
-    }
+    public List<GridElement> GetVerticalNeighbors { get { return verticalNeighbors; } }
+
+    public List<GridElement> GetHorizontalNeighbors { get { return horizontalNeighbors; } }
 }

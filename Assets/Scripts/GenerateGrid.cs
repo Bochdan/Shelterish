@@ -47,15 +47,15 @@ public class GenerateGrid : MonoBehaviour {
 
                 if (j > 0)
                 {
-                    gridElement.GetNeighbors.Add(gridElements[(j - 1)]);
-                    gridElements[j - 1].GetNeighbors.Add(gridElement);
+                    gridElement.GetHorizontalNeighbors.Add(gridElements[(j - 1)]);
+                    gridElements[j - 1].GetHorizontalNeighbors.Add(gridElement);
                 }
 
                 
                if(i > 0)
                 {
-                    gridElement.GetNeighbors.Add(grid[i - 1][j]);
-                    grid[i - 1][j].GetNeighbors.Add(gridElement);
+                    gridElement.GetVerticalNeighbors.Add(grid[i - 1][j]);
+                    grid[i - 1][j].GetVerticalNeighbors.Add(gridElement);
                 }
                 
             }
